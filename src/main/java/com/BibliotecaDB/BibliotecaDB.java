@@ -123,10 +123,12 @@ class MainMenu extends JFrame {
             // Opciones para el Administrador
             menuGestion.add(new JMenuItem("Gestión de Usuarios"));
             menuGestion.add(new JMenuItem("Configurar Mora Diaria"));
+            menuGestion.add(createRegistrarCDOption());
             menuBar.add(menuGestion);
         } else if ("Profesor".equals(tipoUsuario)) {
             // Opciones para el Profesor
             menuGestion.add(new JMenuItem("Gestión de Ejemplares"));
+            menuGestion.add(createRegistrarCDOption());
             menuOperaciones.add(new JMenuItem("Registrar Préstamos"));
             menuOperaciones.add(new JMenuItem("Registrar Devoluciones"));
             menuBar.add(menuGestion);
@@ -147,4 +149,13 @@ class MainMenu extends JFrame {
 
         setVisible(true);
     }
+
+    private JMenuItem createRegistrarCDOption() {
+        JMenuItem registrarCD = new JMenuItem("Registrar CD");
+        registrarCD.addActionListener(e -> {
+            SwingUtilities.invokeLater(() -> new CDForm());
+        });
+        return registrarCD;
+    }
 }
+
