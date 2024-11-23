@@ -2,16 +2,21 @@ package com.BibliotecaDB;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
-class CDForm extends JFrame {
-    private JTextField txtCodigo, txtTitulo, txtArtista, txtGenero, txtDuracion, txtNumCanciones, txtUnidades;
+public class CDForm extends JFrame {
+    private JTextField txtCodigo, txtTitulo, txtArtista, txtGenero, txtDuracion, txtCanciones, txtUnidades;
 
     public CDForm() {
-        setTitle("Registrar CD"); // Título de la ventana
-        setSize(400, 400); // Tamaño de la ventana
+        setTitle("Registrar CD");
+        setSize(400, 400);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(null); // Centrar ventana en pantalla
-        setLayout(new GridLayout(8, 2, 10, 10)); // Disposición de los componentes
+        setLocationRelativeTo(null);
+        setLayout(new GridLayout(8, 2, 10, 10));
 
         // Campos para el formulario
         add(new JLabel("Código:"));
@@ -30,46 +35,57 @@ class CDForm extends JFrame {
         txtGenero = new JTextField();
         add(txtGenero);
 
-        add(new JLabel("Duración (min):"));
+        add(new JLabel("Duración:"));
         txtDuracion = new JTextField();
         add(txtDuracion);
 
         add(new JLabel("Número de Canciones:"));
-        txtNumCanciones = new JTextField();
-        add(txtNumCanciones);
+        txtCanciones = new JTextField();
+        add(txtCanciones);
 
         add(new JLabel("Unidades Disponibles:"));
         txtUnidades = new JTextField();
         add(txtUnidades);
 
-        // Botón Guardar
+        // Botón para guardar
         JButton btnGuardar = new JButton("Guardar");
-        btnGuardar.addActionListener(e -> registrarCD());
+        btnGuardar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                registrarCD();
+            }
+        });
         add(btnGuardar);
 
-        // Hacer visible la ventana
         setVisible(true);
     }
 
     private void registrarCD() {
         try {
-            // Leer datos del formulario
+            // Leer los datos del formulario
             String codigo = txtCodigo.getText();
             String titulo = txtTitulo.getText();
             String artista = txtArtista.getText();
             String genero = txtGenero.getText();
             int duracion = Integer.parseInt(txtDuracion.getText());
-            int numCanciones = Integer.parseInt(txtNumCanciones.getText());
+            int canciones = Integer.parseInt(txtCanciones.getText());
             int unidades = Integer.parseInt(txtUnidades.getText());
 
-            // Crear y guardar CD en la base de datos
-            CD cd = new CD(codigo, titulo, artista, genero, duracion, numCanciones, unidades);
+            // Crear el CD
+            CD cd = new CD(codigo, titulo, artista, genero, duracion, canciones, unidades);
+
+            // Guardar el CD en la base de datos
             cd.guardarEnDB();
 
+            // Mensaje de éxito
             JOptionPane.showMessageDialog(this, "CD registrado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-            dispose(); // Cierra la ventana
+            dispose(); // Cierra la ventana del formulario
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error al registrar el CD: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new CDForm());
     }
 }

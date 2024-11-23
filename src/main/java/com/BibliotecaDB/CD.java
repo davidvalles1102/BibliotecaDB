@@ -3,44 +3,46 @@ package com.BibliotecaDB;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import org.apache.log4j.Logger;
 
-public class CD extends Material {
-    private static final Logger logger = Logger.getLogger(CD.class);
+public class CD {
+    private String codigo;
+    private String titulo;
     private String artista;
     private String genero;
-    private int duracion; // en minutos
-    private int numCanciones;
+    private int duracion;
+    private int canciones;
+    private int unidadesDisponibles;
 
-    public CD(String codigo, String titulo, String artista, String genero, int duracion, int numCanciones, int unidadesDisponibles) {
-        super(codigo, titulo, unidadesDisponibles);
+    public CD(String codigo, String titulo, String artista, String genero, int duracion, int canciones, int unidadesDisponibles) {
+        this.codigo = codigo;
+        this.titulo = titulo;
         this.artista = artista;
         this.genero = genero;
         this.duracion = duracion;
-        this.numCanciones = numCanciones;
+        this.canciones = canciones;
+        this.unidadesDisponibles = unidadesDisponibles;
     }
 
-    @Override
-    public String getAutor() {
-        return artista; // Retorna el artista del CD
-    }
-
-    @Override
     public void guardarEnDB() {
-        String sql = "INSERT INTO cds (codigo, titulo, artista, genero, duracion, numCanciones, unidades) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO cds (codigo, titulo, artista, genero, duracion, canciones, unidades) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, getCodigo());
-            pstmt.setString(2, getTitulo());
+            pstmt.setString(1, codigo);
+            pstmt.setString(2, titulo);
             pstmt.setString(3, artista);
             pstmt.setString(4, genero);
             pstmt.setInt(5, duracion);
-            pstmt.setInt(6, numCanciones);
-            pstmt.setInt(7, getUnidadesDisponibles());
-            pstmt.executeUpdate();
-            logger.info("CD guardado en la base de datos: " + getTitulo());
+            pstmt.setInt(6, canciones);
+            pstmt.setInt(7, unidadesDisponibles);
+
+            int rowsAffected = pstmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("CD guardado exitosamente en la base de datos");
+            } else {
+                System.out.println("No se guardó ningún CD en la base de datos.");
+            }
         } catch (SQLException e) {
-            logger.error("Error al guardar el CD en la base de datos", e);
+            System.err.println("Error al guardar el CD en la base de datos: " + e.getMessage());
         }
     }
 }
