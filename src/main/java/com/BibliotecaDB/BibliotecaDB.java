@@ -120,28 +120,31 @@ class MainMenu extends JFrame {
         JMenu menuOperaciones = new JMenu("Operaciones");
 
         if ("Administrador".equals(tipoUsuario)) {
+            // Opciones para el Administrador
             menuGestion.add(new JMenuItem("Gestión de Usuarios"));
             menuGestion.add(new JMenuItem("Configurar Mora Diaria"));
             menuBar.add(menuGestion);
-            menuBar.add(new JMenu("Configuración"));
-
-            // Opciones adicionales para el Administrador
-            menuBar.getMenu(1).add(new JMenuItem("Configuración General"));
-
-            // Estilo del menú
-            menuBar.setBackground(new Color(70, 130, 180));
-            for (int i = 0; i < menuBar.getMenuCount(); i++) {
-                menuBar.getMenu(i).setForeground(Color.WHITE);
-            }
-
-            // Panel inicial con mensaje
-            JLabel lblBienvenida = new JLabel("Bienvenido, " + tipoUsuario, SwingConstants.CENTER);
-            lblBienvenida.setFont(new Font("Arial", Font.BOLD, 24));
-            add(lblBienvenida);
-
-            setJMenuBar(menuBar);
-
-            setVisible(true);
+        } else if ("Profesor".equals(tipoUsuario)) {
+            // Opciones para el Profesor
+            menuGestion.add(new JMenuItem("Gestión de Ejemplares"));
+            menuOperaciones.add(new JMenuItem("Registrar Préstamos"));
+            menuOperaciones.add(new JMenuItem("Registrar Devoluciones"));
+            menuBar.add(menuGestion);
+            menuBar.add(menuOperaciones);
+        } else if ("Alumno".equals(tipoUsuario)) {
+            // Opciones para el Alumno
+            menuOperaciones.add(new JMenuItem("Consultar Ejemplares"));
+            menuBar.add(menuOperaciones);
         }
+
+        // Añadir el menú a la barra de menús
+        setJMenuBar(menuBar);
+
+        // Panel inicial con mensaje
+        JLabel lblBienvenida = new JLabel("Bienvenido, " + tipoUsuario, SwingConstants.CENTER);
+        lblBienvenida.setFont(new Font("Arial", Font.BOLD, 24));
+        add(lblBienvenida);
+
+        setVisible(true);
     }
 }
