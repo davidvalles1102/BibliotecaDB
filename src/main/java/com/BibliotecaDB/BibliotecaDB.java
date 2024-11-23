@@ -19,33 +19,66 @@ class LoginScreen extends JFrame {
 
     public LoginScreen() {
         setTitle("Biblioteca - Inicio de Sesión");
-        setSize(400, 250);
+        setSize(400, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setLayout(new GridLayout(4, 1));
+        setLayout(new BorderLayout());
+        setBackground(new Color(240, 240, 240));
+
+        // Panel de contenido
+        JPanel contentPanel = new JPanel();
+        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
+        contentPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        add(contentPanel, BorderLayout.CENTER);
+
+        // Título
+        JLabel lblTitulo = new JLabel("Iniciar Sesión", SwingConstants.CENTER);
+        lblTitulo.setFont(new Font("Arial", Font.BOLD, 24));
+        lblTitulo.setAlignmentX(Component.CENTER_ALIGNMENT);
+        contentPanel.add(lblTitulo);
+
+        // Espaciado
+        contentPanel.add(Box.createRigidArea(new Dimension(0, 20)));
 
         // Usuario
-        JPanel panelUsuario = new JPanel(new FlowLayout());
-        JLabel lblUsuario = new JLabel("Usuario:");
-        txtUsuario = new JTextField(20);
-        panelUsuario.add(lblUsuario);
-        panelUsuario.add(txtUsuario);
-        add(panelUsuario);
+        JPanel panelUsuario = createInputPanel("Usuario:", txtUsuario = new JTextField(20));
+        contentPanel.add(panelUsuario);
+
+        // Espaciado
+        contentPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 
         // Contraseña
-        JPanel panelContrasena = new JPanel(new FlowLayout());
-        JLabel lblContrasena = new JLabel("Contraseña:");
-        txtContrasena = new JPasswordField(20);
-        panelContrasena.add(lblContrasena);
-        panelContrasena.add(txtContrasena);
-        add(panelContrasena);
+        JPanel panelContrasena = createInputPanel("Contraseña:", txtContrasena = new JPasswordField(20));
+        contentPanel.add(panelContrasena);
+
+        // Espaciado
+        contentPanel.add(Box.createRigidArea(new Dimension(0, 20)));
 
         // Botón Iniciar Sesión
         JButton btnIniciar = new JButton("Iniciar Sesión");
+        btnIniciar.setBackground(new Color(70, 130, 180));
+        btnIniciar.setForeground(Color.WHITE);
+        btnIniciar.setFont(new Font("Arial", Font.BOLD, 16));
         btnIniciar.addActionListener(new LoginActionListener());
-        add(btnIniciar);
+        btnIniciar.setAlignmentX(Component.CENTER_ALIGNMENT);
+        contentPanel.add(btnIniciar);
 
         setVisible(true);
+    }
+
+    private JPanel createInputPanel(String labelText, JTextField textField) {
+        JPanel panel = new JPanel();
+        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 0));
+
+        JLabel label = new JLabel(labelText);
+        label.setFont(new Font("Arial", Font.PLAIN, 16));
+
+        textField.setMaximumSize(new Dimension(200, 30)); // Alineación de tamaño para los campos de entrada
+
+        panel.add(label);
+        panel.add(textField);
+
+        return panel;
     }
 
     // Action Listener para el botón de inicio de sesión
@@ -55,9 +88,9 @@ class LoginScreen extends JFrame {
             String usuario = txtUsuario.getText();
             String contrasena = new String(txtContrasena.getPassword());
 
-            // Validación simulada de usuario
+            // Simulación de roles y validación
             if ("admin".equals(usuario) && "1234".equals(contrasena)) {
-                dispose(); // Cierra la pantalla de inicio de sesión
+                dispose();
                 new MainMenu("Administrador");
             } else if ("profesor".equals(usuario) && "1234".equals(contrasena)) {
                 dispose();
@@ -76,13 +109,12 @@ class LoginScreen extends JFrame {
 class MainMenu extends JFrame {
     public MainMenu(String tipoUsuario) {
         setTitle("Biblioteca - Menú Principal");
-        setSize(600, 400);
+        setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
         // Crear un menú basado en el tipo de usuario
         JMenuBar menuBar = new JMenuBar();
-        setJMenuBar(menuBar);
 
         JMenu menuGestion = new JMenu("Gestión");
         JMenu menuOperaciones = new JMenu("Operaciones");
@@ -90,17 +122,26 @@ class MainMenu extends JFrame {
         if ("Administrador".equals(tipoUsuario)) {
             menuGestion.add(new JMenuItem("Gestión de Usuarios"));
             menuGestion.add(new JMenuItem("Configurar Mora Diaria"));
-        } else if ("Profesor".equals(tipoUsuario)) {
-            menuGestion.add(new JMenuItem("Gestión de Ejemplares"));
-            menuOperaciones.add(new JMenuItem("Préstamos"));
-            menuOperaciones.add(new JMenuItem("Devoluciones"));
-        } else if ("Alumno".equals(tipoUsuario)) {
-            menuOperaciones.add(new JMenuItem("Consultar Ejemplares"));
+            menuBar.add(menuGestion);
+            menuBar.add(new JMenu("Configuración"));
+
+            // Opciones adicionales para el Administrador
+            menuBar.getMenu(1).add(new JMenuItem("Configuración General"));
+
+            // Estilo del menú
+            menuBar.setBackground(new Color(70, 130, 180));
+            for (int i = 0; i < menuBar.getMenuCount(); i++) {
+                menuBar.getMenu(i).setForeground(Color.WHITE);
+            }
+
+            // Panel inicial con mensaje
+            JLabel lblBienvenida = new JLabel("Bienvenido, " + tipoUsuario, SwingConstants.CENTER);
+            lblBienvenida.setFont(new Font("Arial", Font.BOLD, 24));
+            add(lblBienvenida);
+
+            setJMenuBar(menuBar);
+
+            setVisible(true);
         }
-
-        menuBar.add(menuGestion);
-        menuBar.add(menuOperaciones);
-
-        setVisible(true);
     }
 }
