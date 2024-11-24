@@ -7,13 +7,14 @@ import java.awt.event.ActionListener;
 
 public class LibroForm extends JFrame {
     private JTextField txtCodigo, txtTitulo, txtAutor, txtEditorial, txtIsbn, txtAnio, txtPaginas, txtUnidades;
+    private JButton btnRegresar;
 
     public LibroForm() {
         setTitle("Registrar Libro");
         setSize(400, 400);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
-        setLayout(new GridLayout(9, 2, 10, 10));
+        setLayout(new GridLayout(10, 2, 10, 10));  // Se aumentó el número de filas a 10 para incluir el botón "Regresar"
 
         // Campos para el formulario
         add(new JLabel("Código:"));
@@ -57,6 +58,14 @@ public class LibroForm extends JFrame {
             }
         });
         add(btnGuardar);
+
+        // Botón para regresar a la pantalla de inicio de sesión
+        btnRegresar = new JButton("Regresar al Login Screen");
+        btnRegresar.addActionListener(e -> {
+            dispose(); // Cierra la ventana actual
+            SwingUtilities.invokeLater(() -> new LoginScreen()); // Abre la pantalla de inicio de sesión
+        });
+        add(btnRegresar);
 
         setVisible(true);
     }

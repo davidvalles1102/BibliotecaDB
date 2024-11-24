@@ -7,13 +7,13 @@ import java.awt.event.ActionListener;
 
 public class TesisForm extends JFrame {
     private JTextField txtCodigo, txtTitulo, txtAutor, txtFacultad, txtFechaPublicacion, txtUbicacion, txtUnidades, txtUnidadesPrestados, txtUnidadesDisponibles;
-    private JButton btnGuardar;
+    private JButton btnGuardar, btnRegresar;
 
     public TesisForm() {
         setTitle("Registro de Tesis");
         setSize(400, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new GridLayout(11, 2, 5, 5));
+        setLayout(new GridLayout(12, 2, 5, 5));
 
         // Crear etiquetas y campos de texto
         add(new JLabel("Código:"));
@@ -56,10 +56,18 @@ public class TesisForm extends JFrame {
         btnGuardar = new JButton("Guardar Tesis");
         add(btnGuardar);
 
-        // Espacio vacío para centrar el botón
+        // Botón para regresar a la pantalla de inicio de sesión
+        btnRegresar = new JButton("Regresar al Login Screen");
+        btnRegresar.addActionListener(e -> {
+            dispose(); // Cierra la ventana actual
+            SwingUtilities.invokeLater(() -> new LoginScreen()); // Abre la pantalla de inicio de sesión
+        });
+        add(btnRegresar); // Añadido el botón de regresar
+
+        // Espacio vacío para centrar los botones
         add(new JLabel(""));
 
-        // Acción al presionar el botón
+        // Acción al presionar el botón Guardar
         btnGuardar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -89,12 +97,13 @@ public class TesisForm extends JFrame {
             // Guardar en la base de datos
             tesis.guardarEnDB();
             JOptionPane.showMessageDialog(this, "Tesis guardada exitosamente.");
+            dispose(); // Cierra la ventana del formulario después de guardar
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error al guardar la tesis: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     public static void main(String[] args) {
-        new TesisForm();
+        new TesisForm(); // Crear una instancia de TesisForm
     }
 }

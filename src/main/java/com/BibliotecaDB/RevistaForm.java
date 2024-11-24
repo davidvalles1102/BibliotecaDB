@@ -7,13 +7,14 @@ import java.awt.event.ActionListener;
 
 public class RevistaForm extends JFrame {
     private JTextField txtCodigo, txtTitulo, txtAutor, txtPeriodicidad, txtFechaPublicacion, txtUnidades;
+    private JButton btnGuardar, btnRegresar;
 
     public RevistaForm() {
         setTitle("Registrar Revista");
         setSize(400, 400);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
-        setLayout(new GridLayout(7, 2, 10, 10));
+        setLayout(new GridLayout(8, 2, 10, 10)); // Aumenté a 8 filas para incluir el botón de regresar
 
         // Campos para el formulario
         add(new JLabel("Código:"));
@@ -41,7 +42,7 @@ public class RevistaForm extends JFrame {
         add(txtUnidades);
 
         // Botón para guardar
-        JButton btnGuardar = new JButton("Guardar");
+        btnGuardar = new JButton("Guardar");
         btnGuardar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -49,6 +50,14 @@ public class RevistaForm extends JFrame {
             }
         });
         add(btnGuardar);
+
+        // Botón para regresar a la pantalla de inicio de sesión
+        btnRegresar = new JButton("Regresar al Login Screen");
+        btnRegresar.addActionListener(e -> {
+            dispose(); // Cierra la ventana actual
+            SwingUtilities.invokeLater(() -> new LoginScreen()); // Abre la pantalla de inicio de sesión
+        });
+        add(btnRegresar); // Añadido el botón de regresar
 
         setVisible(true);
     }
@@ -75,6 +84,6 @@ public class RevistaForm extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new RevistaForm());
+        new RevistaForm();
     }
 }

@@ -3,16 +3,15 @@ package com.BibliotecaDB;
 import javax.swing.*;
 import java.awt.*;
 
-
 class GestionUsuariosForm extends JFrame {
     private JTextField txtNombre, txtUsuario, txtRol;
     private JPasswordField txtContrasena;
-    private JButton btnAgregar, btnRestablecer;
+    private JButton btnAgregar, btnRestablecer, btnRegresar;
 
     public GestionUsuariosForm() {
         setTitle("Gestión de Usuarios");
         setSize(400, 300);
-        setLayout(new GridLayout(5, 2));
+        setLayout(new GridLayout(6, 2)); // Mantengo el número de filas a 6
 
         add(new JLabel("Nombre:"));
         txtNombre = new JTextField();
@@ -37,6 +36,14 @@ class GestionUsuariosForm extends JFrame {
         btnRestablecer = new JButton("Restablecer Contraseña");
         btnRestablecer.addActionListener(e -> restablecerContrasena());
         add(btnRestablecer);
+
+        // Botón para regresar a la pantalla de inicio de sesión
+        btnRegresar = new JButton("Regresar al Login Screen");
+        btnRegresar.addActionListener(e -> {
+            dispose(); // Cierra la ventana actual
+            SwingUtilities.invokeLater(() -> new LoginScreen()); // Abre la pantalla de inicio de sesión
+        });
+        add(btnRegresar);
 
         setVisible(true);
     }

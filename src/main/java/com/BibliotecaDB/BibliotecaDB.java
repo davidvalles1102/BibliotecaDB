@@ -120,42 +120,43 @@ class MainMenu extends JFrame {
         JMenu menuOperaciones = new JMenu("Operaciones");
 
         if ("Administrador".equals(tipoUsuario)) {
-            // Opciones para el Administrador
-            menuGestion.add(new JMenuItem("Gestión de Usuarios"));
-            menuGestion.add(new JMenuItem("Configurar Mora Diaria"));
-            menuGestion.add(createRegistrarCDOption());
+            menuGestion.add(createMenuItem("Gestión de Usuarios", e -> new GestionUsuariosForm()));
+            menuGestion.add(createMenuItem("Configurar Mora Diaria", e -> new ConfigurarMoraForm()));
+            menuGestion.add(createMenuItem("Gestión de Ejemplares", e -> new GestionEjemplaresForm()));
             menuBar.add(menuGestion);
         } else if ("Profesor".equals(tipoUsuario)) {
-            // Opciones para el Profesor
-            menuGestion.add(new JMenuItem("Gestión de Ejemplares"));
-            menuGestion.add(createRegistrarCDOption());
-            menuOperaciones.add(new JMenuItem("Registrar Préstamos"));
-            menuOperaciones.add(new JMenuItem("Registrar Devoluciones"));
+            menuGestion.add(createMenuItem("Gestión de Ejemplares", e -> new GestionEjemplaresForm()));
+            menuOperaciones.add(createMenuItem("Registrar Préstamos", e -> new GestionPrestamosForm()));
+            menuOperaciones.add(createMenuItem("Registrar Devoluciones", e -> new GestionDevolucionesForm()));
             menuBar.add(menuGestion);
             menuBar.add(menuOperaciones);
         } else if ("Alumno".equals(tipoUsuario)) {
-            // Opciones para el Alumno
-            menuOperaciones.add(new JMenuItem("Consultar Ejemplares"));
+            menuOperaciones.add(createMenuItem("Consultar Ejemplares", e -> new ConsultaEjemplaresForm()));
             menuBar.add(menuOperaciones);
         }
 
-        // Añadir el menú a la barra de menús
         setJMenuBar(menuBar);
 
-        // Panel inicial con mensaje
         JLabel lblBienvenida = new JLabel("Bienvenido, " + tipoUsuario, SwingConstants.CENTER);
         lblBienvenida.setFont(new Font("Arial", Font.BOLD, 24));
-        add(lblBienvenida);
+        add(lblBienvenida, BorderLayout.CENTER);
+
+        // Botón para regresar al menú principal
+        JButton btnRegresar = new JButton("Regresar al Menú Principal");
+        btnRegresar.addActionListener(e -> regresarAlMenuPrincipal());
+        add(btnRegresar, BorderLayout.SOUTH);
 
         setVisible(true);
     }
 
-    private JMenuItem createRegistrarCDOption() {
-        JMenuItem registrarCD = new JMenuItem("Registrar CD");
-        registrarCD.addActionListener(e -> {
-            SwingUtilities.invokeLater(() -> new CDForm());
-        });
-        return registrarCD;
+    private JMenuItem createMenuItem(String text, ActionListener action) {
+        JMenuItem menuItem = new JMenuItem(text);
+        menuItem.addActionListener(action);
+        return menuItem;
+    }
+
+    private void regresarAlMenuPrincipal() {
+        dispose(); // Cierra la ventana actual
+        SwingUtilities.invokeLater(() -> new MainMenu("Administrador")); // Vuelve a abrir el menú principal con un tipo de usuario por defecto
     }
 }
-

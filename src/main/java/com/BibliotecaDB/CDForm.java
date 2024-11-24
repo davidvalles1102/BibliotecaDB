@@ -4,9 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 
 public class CDForm extends JFrame {
     private JTextField txtCodigo, txtTitulo, txtArtista, txtGenero, txtDuracion, txtCanciones, txtUnidades;
@@ -16,7 +13,7 @@ public class CDForm extends JFrame {
         setSize(400, 400);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
-        setLayout(new GridLayout(8, 2, 10, 10));
+        setLayout(new GridLayout(9, 2, 10, 10));
 
         // Campos para el formulario
         add(new JLabel("Código:"));
@@ -56,6 +53,17 @@ public class CDForm extends JFrame {
             }
         });
         add(btnGuardar);
+
+        // Botón para regresar al menú principal
+        JButton btnRegresar = new JButton("Regresar al Menú Principal");
+        btnRegresar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose(); // Cierra la ventana actual
+                SwingUtilities.invokeLater(() -> new LoginScreen()); // Abre la pantalla del menú principal
+            }
+        });
+        add(btnRegresar);
 
         setVisible(true);
     }

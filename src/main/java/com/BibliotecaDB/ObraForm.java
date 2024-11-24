@@ -7,13 +7,13 @@ import java.awt.event.ActionListener;
 
 public class ObraForm extends JFrame {
     private JTextField txtCodigo, txtTitulo, txtAutor, txtPaginas, txtGenero, txtFechaPublicacion, txtUbicacion, txtUnidades, txtUnidadesPrestados, txtUnidadesDisponibles;
-    private JButton btnGuardar;
+    private JButton btnGuardar, btnRegresar;
 
     public ObraForm() {
         setTitle("Registro de Obra");
         setSize(400, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new GridLayout(12, 2, 5, 5));
+        setLayout(new GridLayout(13, 2, 5, 5)); // Aumenté a 13 filas para incluir el botón de regresar
 
         // Crear etiquetas y campos de texto
         add(new JLabel("Código:"));
@@ -58,18 +58,21 @@ public class ObraForm extends JFrame {
 
         // Botón para guardar
         btnGuardar = new JButton("Guardar Obra");
-        add(btnGuardar);
-
-        // Espacio vacío para centrar el botón
-        add(new JLabel(""));
-
-        // Acción al presionar el botón
         btnGuardar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 guardarObra();
             }
         });
+        add(btnGuardar);
+
+        // Botón para regresar a la pantalla de inicio de sesión
+        btnRegresar = new JButton("Regresar al Login Screen");
+        btnRegresar.addActionListener(e -> {
+            dispose(); // Cierra la ventana actual
+            SwingUtilities.invokeLater(() -> new LoginScreen()); // Abre la pantalla de inicio de sesión
+        });
+        add(btnRegresar); // Añadido el botón de regresar
 
         setVisible(true);
     }
