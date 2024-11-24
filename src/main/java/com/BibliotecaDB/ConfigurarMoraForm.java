@@ -22,11 +22,11 @@ class ConfigurarMoraForm extends JFrame {
         btnGuardar.addActionListener(e -> guardarMora());
         add(btnGuardar);
 
-        // Botón para regresar al menú principal
-        btnRegresar = new JButton("Regresar al Menú Principal");
+        // Botón para regresar a la pantalla de inicio de sesión
+        btnRegresar = new JButton("Regresar al Menu Principal");
         btnRegresar.addActionListener(e -> {
             dispose(); // Cierra la ventana actual
-            SwingUtilities.invokeLater(() -> new MainMenu("Administrador")); // Abre el menú principal para el Administrador
+            SwingUtilities.invokeLater(() -> new LoginScreen()); // Abre la pantalla de inicio de sesión
         });
         add(btnRegresar);
 

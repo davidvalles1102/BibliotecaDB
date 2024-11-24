@@ -23,18 +23,24 @@ class LoginScreen extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
-        setBackground(new Color(240, 240, 240));
+
+        // Fondo con imagen azul y oro
+        JLabel background = new JLabel(new ImageIcon("src/main/resources/images/loginscreen.jpg")); // Cambia la ruta a tu imagen
+        setContentPane(background);
+        background.setLayout(new GridBagLayout());
 
         // Panel de contenido
         JPanel contentPanel = new JPanel();
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
         contentPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        add(contentPanel, BorderLayout.CENTER);
+        contentPanel.setOpaque(false);
+        background.add(contentPanel);
 
         // Título
         JLabel lblTitulo = new JLabel("Iniciar Sesión", SwingConstants.CENTER);
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 24));
         lblTitulo.setAlignmentX(Component.CENTER_ALIGNMENT);
+        lblTitulo.setForeground(Color.BLACK); // Color de texto cambiado a negro
         contentPanel.add(lblTitulo);
 
         // Espaciado
@@ -63,17 +69,31 @@ class LoginScreen extends JFrame {
         btnIniciar.setAlignmentX(Component.CENTER_ALIGNMENT);
         contentPanel.add(btnIniciar);
 
+        // Añadir efecto al pasar el mouse
+        btnIniciar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnIniciar.setBackground(new Color(100, 150, 220)); // Color al pasar el mouse
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnIniciar.setBackground(new Color(70, 130, 180)); // Color original
+            }
+        });
+
         setVisible(true);
     }
 
     private JPanel createInputPanel(String labelText, JTextField textField) {
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 0));
+        panel.setOpaque(false);
 
         JLabel label = new JLabel(labelText);
         label.setFont(new Font("Arial", Font.PLAIN, 16));
+        label.setForeground(Color.BLACK); // Color de texto cambiado a negro
 
         textField.setMaximumSize(new Dimension(200, 30)); // Alineación de tamaño para los campos de entrada
+        textField.setFont(new Font("Arial", Font.PLAIN, 14));
 
         panel.add(label);
         panel.add(textField);
@@ -139,12 +159,28 @@ class MainMenu extends JFrame {
 
         JLabel lblBienvenida = new JLabel("Bienvenido, " + tipoUsuario, SwingConstants.CENTER);
         lblBienvenida.setFont(new Font("Arial", Font.BOLD, 24));
+        lblBienvenida.setForeground(new Color(70, 130, 180));
         add(lblBienvenida, BorderLayout.CENTER);
 
         // Botón para regresar al menú principal
         JButton btnRegresar = new JButton("Regresar al Menú Principal");
+        btnRegresar.setBackground(new Color(70, 130, 180));
+        btnRegresar.setForeground(Color.WHITE);
+        btnRegresar.setFont(new Font("Arial", Font.BOLD, 16));
+        btnRegresar.setFocusPainted(false);
         btnRegresar.addActionListener(e -> regresarAlMenuPrincipal());
         add(btnRegresar, BorderLayout.SOUTH);
+
+        // Añadir efecto al pasar el mouse
+        btnRegresar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnRegresar.setBackground(new Color(100, 150, 220)); // Color al pasar el mouse
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnRegresar.setBackground(new Color(70, 130, 180)); // Color original
+            }
+        });
 
         setVisible(true);
     }

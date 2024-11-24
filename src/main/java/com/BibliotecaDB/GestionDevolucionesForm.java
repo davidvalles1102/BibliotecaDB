@@ -16,7 +16,7 @@ class GestionDevolucionesForm extends JFrame {
         add(lblInfo, BorderLayout.CENTER);
 
         // Botón para regresar a la pantalla de inicio de sesión
-        JButton btnRegresar = new JButton("Regresar al Login Screen");
+        JButton btnRegresar = new JButton("Regresar al Menu Principal");
         btnRegresar.addActionListener(new RegresarAction());
 
         // Añadir el botón en la parte inferior

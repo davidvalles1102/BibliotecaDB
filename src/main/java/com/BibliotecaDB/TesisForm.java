@@ -57,7 +57,7 @@ public class TesisForm extends JFrame {
         add(btnGuardar);
 
         // Botón para regresar a la pantalla de inicio de sesión
-        btnRegresar = new JButton("Regresar al Login Screen");
+        btnRegresar = new JButton("Regresar al Menu Principal");
         btnRegresar.addActionListener(e -> {
             dispose(); // Cierra la ventana actual
             SwingUtilities.invokeLater(() -> new LoginScreen()); // Abre la pantalla de inicio de sesión

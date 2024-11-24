@@ -54,16 +54,13 @@ public class CDForm extends JFrame {
         });
         add(btnGuardar);
 
-        // Botón para regresar al menú principal
-        JButton btnRegresar = new JButton("Regresar al Menú Principal");
-        btnRegresar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose(); // Cierra la ventana actual
-                SwingUtilities.invokeLater(() -> new LoginScreen()); // Abre la pantalla del menú principal
-            }
+        // Botón para regresar a la pantalla de inicio de sesión
+        JButton btnRegresar = new JButton("Regresar al Menu Principal");
+        btnRegresar.addActionListener(e -> {
+            dispose(); // Cierra la ventana actual
+            SwingUtilities.invokeLater(() -> new LoginScreen()); // Abre la pantalla de inicio de sesión
         });
-        add(btnRegresar);
+        add(btnRegresar); // Añadido el botón de regresar
 
         setVisible(true);
     }

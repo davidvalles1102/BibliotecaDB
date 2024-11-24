@@ -47,9 +47,12 @@ public class ConsultaEjemplaresForm extends JFrame {
         panelBusqueda.add(btnMostrarTodos);
 
         // Botón Regresar
-        btnRegresar = new JButton("Regresar al Menú Principal");
-        btnRegresar.addActionListener(new RegresarAction());
-        panelBusqueda.add(btnRegresar);
+        btnRegresar = new JButton("Regresar al Menu Principal");
+        btnRegresar.addActionListener(e -> {
+            dispose(); // Cierra la ventana actual
+            SwingUtilities.invokeLater(() -> new LoginScreen()); // Abre la pantalla de inicio de sesión
+        });
+        panelBusqueda.add(btnRegresar); // Añadido el botón de regresar
 
         add(panelBusqueda, BorderLayout.NORTH);
 
