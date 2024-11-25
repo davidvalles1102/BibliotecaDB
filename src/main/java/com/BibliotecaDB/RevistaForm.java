@@ -16,6 +16,9 @@ public class RevistaForm extends JFrame {
         setLocationRelativeTo(null);
         setLayout(new GridLayout(8, 2, 10, 10)); // Aumenté a 8 filas para incluir el botón de regresar
 
+        // Cambiar el color de fondo
+        getContentPane().setBackground(new Color(173, 216, 230)); // Azul claro (Light Blue)
+
         // Campos para el formulario
         add(new JLabel("Código:"));
         txtCodigo = new JTextField();

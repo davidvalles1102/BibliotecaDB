@@ -15,6 +15,9 @@ public class TesisForm extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new GridLayout(12, 2, 5, 5));
 
+        // Cambiar el color de fondo
+        getContentPane().setBackground(new Color(173, 216, 230)); // Azul claro (Light Blue)
+
         // Crear etiquetas y campos de texto
         add(new JLabel("Código:"));
         txtCodigo = new JTextField();

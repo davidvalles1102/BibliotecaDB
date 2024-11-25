@@ -16,6 +16,9 @@ public class LibroForm extends JFrame {
         setLocationRelativeTo(null);
         setLayout(new GridLayout(10, 2, 10, 10));  // Se aumentó el número de filas a 10 para incluir el botón "Regresar"
 
+        // Cambiar el color de fondo
+        getContentPane().setBackground(new Color(173, 216, 230)); // Azul claro (Light Blue)
+
         // Campos para el formulario
         add(new JLabel("Código:"));
         txtCodigo = new JTextField();

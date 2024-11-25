@@ -15,6 +15,9 @@ public class CDForm extends JFrame {
         setLocationRelativeTo(null);
         setLayout(new GridLayout(9, 2, 10, 10));
 
+        // Cambiar el color de fondo
+        getContentPane().setBackground(new Color(173, 216, 230)); // Azul claro (Light Blue)
+        
         // Campos para el formulario
         add(new JLabel("Código:"));
         txtCodigo = new JTextField();
