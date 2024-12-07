@@ -143,15 +143,30 @@ class MainMenu extends JFrame {
             menuGestion.add(createMenuItem("Gestión de Usuarios", e -> new GestionUsuariosForm()));
             menuGestion.add(createMenuItem("Configurar Mora Diaria", e -> new ConfigurarMoraForm()));
             menuGestion.add(createMenuItem("Gestión de Ejemplares", e -> new GestionEjemplaresForm()));
+            menuGestion.add(createMenuItem("Gestión Prestamo", e -> new GestionPrestamosForm()));
+            menuGestion.add(createMenuItem("Gestión Devoluciones", e -> new GestionDevolucionesForm()));
             menuBar.add(menuGestion);
+            menuOperaciones.add(createMenuItem("Registrar CD", e -> new CDForm()));
+            menuOperaciones.add(createMenuItem("Registrar Libro", e -> new LibroForm()));
+            menuOperaciones.add(createMenuItem("Registrar Obra", e -> new ObraForm()));
+            menuOperaciones.add(createMenuItem("Registrar Revista", e -> new RevistaForm()));
+            menuOperaciones.add(createMenuItem("Registrar Tesis", e -> new TesisForm()));
+            menuBar.add(menuOperaciones);
+
         } else if ("Profesor".equals(tipoUsuario)) {
             menuGestion.add(createMenuItem("Gestión de Ejemplares", e -> new GestionEjemplaresForm()));
             menuOperaciones.add(createMenuItem("Registrar Préstamos", e -> new GestionPrestamosForm()));
             menuOperaciones.add(createMenuItem("Registrar Devoluciones", e -> new GestionDevolucionesForm()));
             menuBar.add(menuGestion);
+            menuOperaciones.add(createMenuItem("Registrar CD", e -> new CDForm()));
+            menuOperaciones.add(createMenuItem("Registrar Libro", e -> new LibroForm()));
+            menuOperaciones.add(createMenuItem("Registrar Obra", e -> new ObraForm()));
+            menuOperaciones.add(createMenuItem("Registrar Revista", e -> new RevistaForm()));
+            menuOperaciones.add(createMenuItem("Registrar Tesis", e -> new TesisForm()));
             menuBar.add(menuOperaciones);
         } else if ("Alumno".equals(tipoUsuario)) {
             menuOperaciones.add(createMenuItem("Consultar Ejemplares", e -> new ConsultaEjemplaresForm()));
+            menuOperaciones.add(createMenuItem("Consultar prestamos", e -> new GestionPrestamosForm()));
             menuBar.add(menuOperaciones);
         }
 
